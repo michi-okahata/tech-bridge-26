@@ -1,6 +1,16 @@
 import sqlite3
 import pandas as pd
 
+data = pd.ExcelFile('./data/Choice Data.xlsx')
+
+tables = {}
+
+for table in data.sheet_names:
+    df = pd.read_excel(data, sheet_name=table, nrows=0)
+    tables[table] = df.columns.to_list()
+    
+print(tables)
+
 conn = sqlite3.connect('data/choice.db')
 cursor = conn.cursor()
 
