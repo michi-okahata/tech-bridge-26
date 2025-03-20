@@ -14,6 +14,10 @@ print(tables)
 conn = sqlite3.connect('data/choice.db')
 cursor = conn.cursor()
 
+for sheet_name in data.sheet_names:
+    df = pd.read_excel(data, sheet_name=sheet_name)
+    df.to_sql(sheet_name, conn, index=False, if_exists="replace")
+
 rename = """
 ALTER TABLE rw_org
 RENAME COLUMN '[' TO org_id;
