@@ -26,14 +26,15 @@ RENAME COLUMN '[' TO org_id;
 cursor.execute(rename)
 
 prediction = """
-CREATE TABLE prediction AS
-SELECT header.donationdate posting_date,
-header.donorname donor_id,
-lines.totalgrossweight gross_weight,
-header.warehousename branch_code,
-lines.storagerequirement storage_code
-FROM amx_donation_header header
-JOIN amx_donation_lines lines ON header.donationnumber = lines.donationnumber
+CREATE TABLE prediction AS (
+    SELECT header.donationdate AS posting_date,
+    header.donorname AS donor_id,
+    lines.totalgrossweight AS gross_weight,
+    header.warehousename AS branch_code,
+    lines.storagerequirement AS storage_code
+    FROM amx_donation_header header
+    JOIN amx_donation_lines slines ON header.donationnumber = lines.donationnumber
+)
 """
 
 cursor.execute(prediction)
